@@ -1,35 +1,39 @@
-@import './base.css';
+@import 'tailwindcss';
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+* {
+  /* outline: red solid 1px; */
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+/* body {
+  font-family: Poppins, sans-serif;
+  @apply bg-[#1e293b] text-white;
+} */
+
+body {
+  font-family: Poppins, sans-serif;
+  color: white;
+  background: linear-gradient(to top, #101828 90%, #2563eb 100%);
+  min-height: 100vh;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+/* Estilo para navegadores basados en Webkit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 8px;
+  background: #232a36;
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+::-webkit-scrollbar-thumb {
+  background: #9fb8d2;
+  border-radius: 8px;
+  border: 21px solid #232a36;
+}
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+::-webkit-scrollbar-thumb:hover {
+  background: #4f6d8a;
+}
+
+/* Firefox */
+* {
+  /* scrollbar-width: thin; */
+  scrollbar-color: #9fb8d2 #232a36;
 }
