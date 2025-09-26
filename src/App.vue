@@ -36,7 +36,7 @@ const showSidebar = ref(false)
 
     <!-- Botón hamburguesa ESCRITORIO-->
     <button
-      class="fixed top-4 left-4 z-150 bg-gray-900 p-2 rounded-md shadow-lg cursor-pointer lg:hidden"
+      class="fixed top-4 left-4 z-50 bg-gray-900 p-2 rounded-md shadow-lg cursor-pointer lg:hidden"
       @click="showSidebar = true"
       aria-label="Abrir menú"
     >
