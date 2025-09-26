@@ -1,96 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-// import Users from './components/UsersComponent.vue'
-// import Products from './components/ProductsComponent.vue'
-// import Students from './components/StudentsComponent.vue'
-// import Emails from './components/EmailsComponent.vue'
-// import Counter from './components/CounterComponent.vue'
-// import ShowHide from './components/ShowHide.vue'
-// import Upn from './components/UpnComponent.vue'
-// import QrComponent from './components/QrComponent.vue'
-// import TaskComponent from './components/TaskComponent.vue'
-// import FindNameComponent from './components/FindNameComponent.vue'
-// import TemperatureComponent from './components/TemperatureComponent.vue'
-// import GoogleKeep from './components/GoogleKeep.vue'
-// import FruitList from './components/SaludarComponent.vue'
-// import ChangeBg from './components/ChangeBg.vue'
-// import ImcCalculator from './components/ImcCalculator.vue'
-// import Clock from './components/ClockComponent.vue'
-// import Movies from './components/MoviesComponent.vue'
-// import MoviesComponents2 from './components/MoviesComponents2.vue'
-// import MusicPlayer from './components/MusicPlayer.vue'
-// import TrackInfo from './components/TrackInfo.vue'
-// import PlayerControls from './components/PlayerControls.vue'
-// import ProgressBar from './components/ProgressBar.vue'
-// import VolumeControl from './components/VolumeControl.vue'
-// import VideoCard from './components/VideoCard.vue'
-// import TikTokFeed from './views/TikTokFeed.vue'
-// import PricingSection from './components/PricingSection.vue'
-// import SearchFilter from './components/MySearchFilter.vue'
-// import CambioSeguro from './components/CambioSeguro.vue'
+
 import EmotesGB from './components/EmotesGB.vue'
 import MovilesGB from './components/MovilesGB.vue'
 import { routes } from './router'
 
-// const modoOscuro = ref(false)
-
 const showSidebar = ref(false)
-
-// const vista = ref('a') // controla qué vista mostrar
 </script>
 
 <template>
-  <!-- <Users />
-  
-  <Products />
-  
-  <Students />
-  
-  <Emails />
-  
-  <Counter />
-  
-  <ShowHide /> -->
-
-  <!-- <Upn v-if="vista === 'a'" @cambiar-vista="vista = 'b'" />
-  
-  <QrComponent v-else @regresar-vista="vista = 'a'" /> -->
-  <!-- <Clock />
-
-  <TaskComponent />
-
-  <FindNameComponent />
-
-  <TemperatureComponent />
-
-  <GoogleKeep />
-
-  <FruitList />
-
-  <ChangeBg />
-
-  <ImcCalculator />
--->
-  <!-- <SpotifyComponent /> -->
-
-  <!-- <Movies />
-
-  <MoviesComponents2 /> 
-
-  <MusicPlayer />
-  <PlayerControls />
-  <ProgressBar />
-  <VolumeControl /> -->
-
-  <!-- <VideoCard />
-  <TikTokFeed /> -->
-
-  <!-- <PricingSection /> -->
-
-  <!-- <SearchFilter /> -->
-
-  <!-- <CambioSeguro /> -->
-
   <div class="flex">
     <!-- BARRA LATERAL -->
     <div
