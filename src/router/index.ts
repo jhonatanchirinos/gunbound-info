@@ -23,12 +23,12 @@ export const routes = [
     component: MovilesView,
     label: 'MÓVILES',
   },
-  {
-    path: '/mapas',
-    name: 'mapas',
-    component: MapasView,
-    label: 'MAPAS',
-  },
+  // {
+  //   path: '/mapas',
+  //   name: 'mapas',
+  //   component: MapasView,
+  //   label: 'MAPAS',
+  // },
 ]
 
 const router = createRouter({
