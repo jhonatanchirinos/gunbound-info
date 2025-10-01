@@ -19,7 +19,7 @@ const error = ref(null)
 const fetchMobiles = async () => {
   try {
     loading.value = true
-    const response = await fetch('http://localhost:3000/api/moviles')
+    const response = await fetch('http://127.0.0.1:3000/api/moviles')
 
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`)
