@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import EmoteCard from '@/components/EmoteCard.vue'
-import hiImage from '@/assets/Hi.webp'
+// import hiImage from '@/assets/Hi.webp'
 
 // const modoOscuro = ref(false)
 const gender = ref<'male' | 'female'>('male')
@@ -16,6 +16,33 @@ const emoteCount = ref(0)
 const emoteBlocked = ref(false)
 const emoteMessage = ref('')
 let emoteTimeout: ReturnType<typeof setTimeout> | null = null
+
+const emotesCard = ref([])
+const loading = ref(true)
+const error = ref(null)
+
+//Función para obtener los datos
+const fetchEmotes = async () => {
+  try {
+    loading.value = true
+    const response = await fetch('http://127.0.0.1:3000/api/emotes')
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`)
+    }
+    const data = await response.json()
+    emotesCard.value = data
+  } catch (err) {
+    error.value = err.message
+  } finally {
+    loading.value = false
+  }
+}
+
+//Cargar datos al montar el componente
+onMounted(() => {
+  fetchEmotes()
+})
 
 // Función para reproducir sonido según número
 function playEmoteSound(number: string) {
@@ -251,8 +278,8 @@ function toggleVersion() {
       <div
         class="grid [grid-template-columns:repeat(auto-fill,minmax(150px,1fr))] w-[750px] max-w-full justify-items-center gap-5 px-5"
       >
-        <EmoteCard
-          :img="hiImage"
+        <!-- <EmoteCard
+          img="/Hi.webp"
           label="Hola"
           number="1"
           sound="Hi"
@@ -348,6 +375,18 @@ function toggleVersion() {
           sound="Thanks"
           :version="version"
           :gender
+          :volume="volume"
+          :playEmoteSound="playEmoteSound"
+        /> -->
+        <EmoteCard
+          v-for="emote in emotesCard"
+          :key="emote.number"
+          :img="emote.img"
+          :label="emote.label"
+          :number="emote.number"
+          :sound="emote.sound"
+          :version="version"
+          :gender="gender"
           :volume="volume"
           :playEmoteSound="playEmoteSound"
         />
