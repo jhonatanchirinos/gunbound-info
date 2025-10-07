@@ -15,7 +15,7 @@ const mobileRows = ref([])
 const loading = ref(true)
 const error = ref(null)
 
-// Función para obtener los datos
+// Función para obtener los móviles
 const fetchMobiles = async () => {
   try {
     loading.value = true
