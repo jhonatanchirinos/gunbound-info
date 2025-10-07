@@ -27,7 +27,7 @@ function handleClick() {
 
 <template>
   <div
-    class="flex flex-col gap-5 items-center bg-gray-700 w-full rounded-xl py-5 px-3 font-semibold cursor-pointer select-none shadow-xl hover:scale-105 hover:shadow-2xl transition-transform"
+    class="flex flex-col gap-5 items-center bg-gray-800 w-full rounded-xl py-5 px-3 font-semibold cursor-pointer select-none shadow-xl hover:scale-105 hover:shadow-2xl transition-transform"
     @click="handleClick"
   >
     <img :src="img" class="w-14 h-14 border border-white bg-white rounded-xl" draggable="false" />
