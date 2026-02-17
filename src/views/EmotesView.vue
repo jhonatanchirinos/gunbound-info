@@ -7,19 +7,26 @@ import EmoteCard from '@/components/EmoteCard.vue'
 const gender = ref<'male' | 'female'>('male')
 const version = ref<'old' | 'new'>('new')
 
-const showVolume = ref(false)
 const volume = ref(1) // 1 es el máximo
-const lastVolume = ref(1)
-const muted = ref(false)
+// const showVolume = ref(false)
+// const lastVolume = ref(1)
+// const muted = ref(false)
 
 const emoteCount = ref(0)
 const emoteBlocked = ref(false)
 const emoteMessage = ref('')
 let emoteTimeout: ReturnType<typeof setTimeout> | null = null
 
-const emotesCard = ref([])
+interface Emote {
+  number: string
+  img: string
+  label: string
+  sound: string
+}
+
+const emotesCard = ref<Emote[]>([])
 const loading = ref(true)
-const error = ref(null)
+const error = ref<string | null>(null)
 
 //Función para obtener los datos
 const fetchEmotes = async () => {
@@ -34,7 +41,7 @@ const fetchEmotes = async () => {
     const data = await response.json()
     emotesCard.value = data
   } catch (err) {
-    error.value = err.message
+    error.value = err instanceof Error ? err.message : String(err)
   } finally {
     loading.value = false
   }
@@ -55,7 +62,7 @@ function playEmoteSound(number: string) {
   if (emoteCount.value > 10) {
     emoteBlocked.value = true
     emoteMessage.value = 'No hagas spam!'
-    emoteTimeout && clearTimeout(emoteTimeout)
+    if (emoteTimeout) clearTimeout(emoteTimeout)
     emoteTimeout = setTimeout(() => {
       emoteBlocked.value = false
       emoteCount.value = 0
@@ -113,24 +120,24 @@ onUnmounted(() => {
 //   localStorage.setItem('modoOscuro', modoOscuro.value.toString())
 // }
 
-function toggleVolume() {
-  showVolume.value = !showVolume.value
-}
+// function toggleVolume() {
+//   showVolume.value = !showVolume.value
+// }
 
-function setVolume(e: Event) {
-  volume.value = +(e.target as HTMLInputElement).value
-}
+// function setVolume(e: Event) {
+//   volume.value = +(e.target as HTMLInputElement).value
+// }
 
-function toggleMute() {
-  if (!muted.value) {
-    lastVolume.value = volume.value
-    volume.value = 0
-    muted.value = true
-  } else {
-    volume.value = lastVolume.value
-    muted.value = false
-  }
-}
+// function toggleMute() {
+//   if (!muted.value) {
+//     lastVolume.value = volume.value
+//     volume.value = 0
+//     muted.value = true
+//   } else {
+//     volume.value = lastVolume.value
+//     muted.value = false
+//   }
+// }
 
 function toggleGender() {
   gender.value = gender.value === 'male' ? 'female' : 'male'
