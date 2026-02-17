@@ -9,7 +9,6 @@ const props = defineProps<{
   borderColor: string
   clickable?: boolean
   info: string
-  secondColor: string
 }>()
 
 const isSelecting = ref(false)
@@ -34,7 +33,7 @@ function selectRandomMobiles() {
 
   // Selecciona todas las celdas excepto la que tiene la imagen random.webp
   const allMobiles = Array.from(document.querySelectorAll('td[borderColor]')).filter(
-    (td) => !td.querySelector('img')?.src.includes('random.webp'),
+    (td) => !td.querySelector('img')?.src.includes('random.webp')
   )
   // Crea un array de índices y los mezcla aleatoriamente
   const indices = allMobiles.map((_, i) => i)
