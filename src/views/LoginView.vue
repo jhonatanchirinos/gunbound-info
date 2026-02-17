@@ -28,7 +28,7 @@ async function handleLogin() {
     loginError.value = ''
 
     const response = await login({
-      username: user.value,
+      email: user.value,
       password: password.value,
     })
 
@@ -41,7 +41,7 @@ async function handleLogin() {
 
     router.push('/')
   } catch (err) {
-    loginError.value = err.message || 'Error al iniciar sesión'
+    loginError.value = err instanceof Error ? err.message : 'Error al iniciar sesión'
   }
 }
 </script>

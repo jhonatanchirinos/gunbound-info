@@ -11,9 +11,24 @@ const mobileHeads = [
   { label: 'BIÓNICO', colspan: 12 },
 ]
 
-const mobileRows = ref([])
+interface Mobile {
+  label: string
+  img: string
+  alt: string
+  colspan: number
+  borderColor: string
+  clickable: boolean
+  info: string
+}
+
+interface MobileRow {
+  head: string
+  mobiles: Mobile[]
+}
+
+const mobileRows = ref<MobileRow[]>([])
 const loading = ref(true)
-const error = ref(null)
+const error = ref<string | null>(null)
 
 // Función para obtener los móviles
 const fetchMobiles = async () => {
@@ -29,7 +44,7 @@ const fetchMobiles = async () => {
     const data = await response.json()
     mobileRows.value = data
   } catch (err) {
-    error.value = err.message
+    error.value = (err as Error).message
     console.error('Error fetching mobiles:', err)
   } finally {
     loading.value = false
