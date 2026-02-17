@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import MobileGB from '@/components/MobileGB.vue'
 import { onMounted, ref, computed } from 'vue'
+import MobileGB from '@/components/MobileGB.vue'
 
 const mobileHeads = [
   {
@@ -19,7 +19,8 @@ const error = ref(null)
 const fetchMobiles = async () => {
   try {
     loading.value = true
-    const response = await fetch('http://127.0.0.1:3000/api/moviles')
+    // const response = await fetch('http://127.0.0.1:3000/api/moviles')
+    const response = await fetch('/moviles.json')
 
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`)
@@ -35,7 +36,7 @@ const fetchMobiles = async () => {
   }
 }
 
-// Cargar datos al montar el componente
+//Cargar datos al montar el componente
 onMounted(() => {
   fetchMobiles()
 })
@@ -100,7 +101,6 @@ const selectedMobileInfo = computed(() => {
               :borderColor="mobile.borderColor"
               :clickable="mobile.clickable"
               :info="mobile.info"
-              :secondColor="mobile.secondColor"
               v-model:selectedMobile="selectedMobile"
             />
           </tr>
