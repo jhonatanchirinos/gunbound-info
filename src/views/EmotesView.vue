@@ -25,7 +25,8 @@ const error = ref(null)
 const fetchEmotes = async () => {
   try {
     loading.value = true
-    const response = await fetch('http://127.0.0.1:3000/api/emotes')
+    // const response = await fetch('http://127.0.0.1:3000/api/emotes')
+    const response = await fetch('/emotes.json')
 
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`)
@@ -79,7 +80,7 @@ function playEmoteSound(number: string) {
   const sound = soundMap[number]
   if (sound) {
     const audio = new Audio(
-      `/sounds/${version.value}/${gender.value}/${capitalizedVersion}${capitalizedGender}${sound}.mp3`,
+      `/sounds/${version.value}/${gender.value}/${capitalizedVersion}${capitalizedGender}${sound}.mp3`
     )
     audio.volume = volume.value ?? 1
     audio.play()
@@ -89,7 +90,7 @@ function playEmoteSound(number: string) {
 // Listener global para Alt + número
 function handleKeydown(e: KeyboardEvent) {
   if (e.altKey) {
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 0; i < 10; i++) {
       if (e.key === i.toString()) {
         playEmoteSound(i.toString())
         e.preventDefault()
@@ -149,7 +150,7 @@ function toggleVersion() {
         <h1 class="text-3xl font-extrabold">EMOTES</h1>
 
         <div class="gap-5 items-center hidden md:flex">
-          <template v-if="volume > 0">
+          <!-- <template v-if="volume > 0">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -184,9 +185,9 @@ function toggleVersion() {
               />
               <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2" />
             </svg>
-          </template>
+          </template> -->
 
-          <div class="flex items-center gap-2">
+          <!-- <div class="flex items-center gap-2">
             <input
               type="range"
               min="0"
@@ -199,7 +200,7 @@ function toggleVersion() {
             <span class="text-xs w-10 text-center inline-block font-semibold"
               >{{ Math.round(volume * 100) }}%</span
             >
-          </div>
+          </div> -->
 
           <!-- MODO OSCURO -->
           <!-- <svg
