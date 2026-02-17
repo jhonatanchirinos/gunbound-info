@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "img": "/Hi.webp",
+    "label": "Hola",
+    "number": "1",
+    "sound": "Hi"
+  },
+  {
+    "id": 2,
+    "img": "/Bye.webp",
+    "label": "Adiós",
+    "number": "2",
+    "sound": "Bye"
+  },
+  {
+    "id": 3,
+    "img": "/MyGod.webp",
+    "label": "Dios Mío",
+    "number": "3",
+    "sound": "MyGod"
+  },
+  {
+    "id": 4,
+    "img": "/Help.webp",
+    "label": "Ayuda",
+    "number": "4",
+    "sound": "Help"
+  },
+  {
+    "id": 5,
+    "img": "/Good.webp",
+    "label": "Bien",
+    "number": "5",
+    "sound": "Good"
+  },
+  {
+    "id": 6,
+    "img": "/VeryGood.webp",
+    "label": "Muy Bien",
+    "number": "6",
+    "sound": "VeryGood"
+  },
+  {
+    "id": 7,
+    "img": "/NiceTry.webp",
+    "label": "Buen Intento",
+    "number": "7",
+    "sound": "GoodTry"
+  },
+  {
+    "id": 8,
+    "img": "/Sorry.webp",
+    "label": "Perdón",
+    "number": "8",
+    "sound": "Sorry"
+  },
+  {
+    "id": 9,
+    "img": "/Noob.webp",
+    "label": "Principiante",
+    "number": "9",
+    "sound": "Beginner"
+  },
+  {
+    "id": 10,
+    "img": "/Thanks.webp",
+    "label": "Gracias",
+    "number": "10",
+    "sound": "Thanks"
+  }
+]
