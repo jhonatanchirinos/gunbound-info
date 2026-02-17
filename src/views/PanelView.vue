@@ -4,13 +4,21 @@ import { useApi } from '@/composables/useApi'
 
 const { fetchUsers, createUser, updateUser, deleteUser, loading, error } = useApi()
 
-const users = ref([])
+interface User {
+  _id: string
+  username: string
+  password?: string
+  role: string
+}
+
+const users = ref<User[]>([])
 const newUser = ref({ username: '', password: '', role: 'user' })
-const editingUser = ref(null)
+const editingUser = ref<User | null>(null)
 const showDeleteConfirm = ref(false)
-const userToDelete = ref(null)
-const selectedUserId = ref(null)
+const userToDelete = ref<User | null>(null)
+// const selectedUserId = ref(null)
 const showPassword = ref(false)
+const selectedUserId = ref<string | null>(null)
 
 // Estados para los checkboxes
 const selectedUsers = ref(new Set())
@@ -36,17 +44,19 @@ const addUser = async () => {
   loadUsers()
 }
 
-const startEdit = (user) => {
+const startEdit = (user: User) => {
   editingUser.value = { ...user }
 }
 
 const saveEdit = async () => {
-  await updateUser(editingUser.value._id, editingUser.value)
-  editingUser.value = null
-  loadUsers()
+  if (editingUser.value) {
+    await updateUser(editingUser.value._id, editingUser.value)
+    editingUser.value = null
+    loadUsers()
+  }
 }
 
-const removeUser = async (user) => {
+const removeUser = async (user: User) => {
   userToDelete.value = user
   showDeleteConfirm.value = true
 }
@@ -70,7 +80,7 @@ const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value
 }
 
-const toggleRowSelection = (userId) => {
+const toggleRowSelection = (userId: string) => {
   // Alternar selección de fila
   selectedUserId.value = selectedUserId.value === userId ? null : userId
 
@@ -79,7 +89,7 @@ const toggleRowSelection = (userId) => {
 }
 
 // Función para alternar selección individual
-const toggleUserSelection = (userId) => {
+const toggleUserSelection = (userId: string) => {
   if (selectedUsers.value.has(userId)) {
     selectedUsers.value.delete(userId)
   } else {
@@ -88,7 +98,7 @@ const toggleUserSelection = (userId) => {
 }
 
 // Nueva función para manejar solo el checkbox
-const handleCheckboxClick = (userId) => {
+const handleCheckboxClick = (userId: string) => {
   toggleUserSelection(userId)
   // También seleccionar la fila si el checkbox se marca
   if (selectedUsers.value.has(userId)) {

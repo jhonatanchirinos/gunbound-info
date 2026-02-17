@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import EmotesView from '../views/EmotesView.vue'
 import MovilesView from '../views/MovilesView.vue'
 // import MapasView from '../views/MapasView.vue'
-import MainView from '@/views/MainView.vue'
+// import MainView from '@/views/MainView.vue'
 
 import LoginView from '@/views/LoginView.vue'
 import PanelView from '@/views/PanelView.vue'
@@ -11,7 +11,6 @@ export const routes = [
   {
     path: '/',
     name: 'home',
-    component: EmotesView,
     redirect: '/emotes',
   },
   {
