@@ -149,15 +149,12 @@ function toggleVersion() {
 </script>
 
 <template>
-  <div class="flex flex-col max-w-full mx-auto pb-5">
-    <div class="flex flex-col gap-10 items-center">
+  <div class="flex flex-col gap-10 items-center">
+    <div class="flex justify-center w-full py-10">
+      <h1 class="text-5xl font-extrabold">EMOTES</h1>
+    </div>
 
-      <!-- TITLE -->
-      <div class="flex justify-center w-full py-10">
-        <h1 class="text-5xl font-extrabold">EMOTES</h1>
-      </div>
-
-      <div class="flex flex-col gap-3 items-center w-full">
+    <div class="flex flex-col gap-3 items-center w-full">
         <!-- SWITCH SEASON -->
         <div class="flex w-full justify-center gap-5 font-bold">
           <p>SEASON 2</p>
@@ -206,10 +203,10 @@ function toggleVersion() {
             ]"
           />
         </div>
-      </div>
+    </div>
 
-      <!-- EMOTE CARDS -->
-      <div
+    <!-- EMOTE CARDS -->
+    <div
         class="grid [grid-template-columns:repeat(auto-fill,minmax(150px,1fr))] w-[750px] max-w-full gap-5 p-5"
       >
         <EmoteCard
@@ -224,7 +221,6 @@ function toggleVersion() {
           :volume="volume"
           :playEmoteSound="playEmoteSound"
         />
-      </div>
     </div>
   </div>
 

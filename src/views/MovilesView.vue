@@ -68,10 +68,10 @@ const selectedMobileInfo = computed(() => {
 </script>
 
 <template>
-  <!-- CONTENIDO MÓVILES -->
-  <div class="flex flex-col gap-7 overflow-x-auto p-5 mx-auto w-[1377px] max-w-full">
-    <!-- HEADER -->
-    <h1 class="text-3xl font-extrabold pl-15 lg:pl-0">MÓVILES</h1>
+  <div class="flex flex-col overflow-x-auto mx-auto w-[1377px] max-w-full ">
+    <div class="flex justify-center w-full py-10">
+      <h1 class="text-5xl font-extrabold">MÓVILES</h1>
+    </div>
 
     <!-- MOBILES TABLE -->
     <div class="overflow-x-auto">
@@ -149,6 +149,12 @@ const selectedMobileInfo = computed(() => {
       </div>
     </div>
   </div>
+
+
+
+
+
+
 </template>
 
 <style>
