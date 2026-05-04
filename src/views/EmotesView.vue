@@ -149,243 +149,69 @@ function toggleVersion() {
 </script>
 
 <template>
-  <!-- CONTENIDO EMOTES -->
   <div class="flex flex-col max-w-full mx-auto pb-5">
-    <div class="flex flex-col gap-7 items-center">
-      <!-- HEADER -->
-      <div class="flex justify-between w-full gap-3 pt-5 pl-20 lg:pl-0">
-        <h1 class="text-3xl font-extrabold">EMOTES</h1>
+    <div class="flex flex-col gap-10 items-center">
 
-        <div class="gap-5 items-center hidden md:flex">
-          <!-- <template v-if="volume > 0">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="3"
-              stroke="currentColor"
-              class="size-6 cursor-pointer"
-              @click="toggleMute"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
-              />
-            </svg>
-          </template>
+      <!-- TITLE -->
+      <div class="flex justify-center w-full py-10">
+        <h1 class="text-5xl font-extrabold">EMOTES</h1>
+      </div>
 
-          <template v-else>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="3"
-              stroke="currentColor"
-              class="size-6 cursor-pointer"
-              @click="toggleMute"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
-              />
-              <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2" />
-            </svg>
-          </template> -->
-
-          <!-- <div class="flex items-center gap-2">
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.01"
-              :value="volume"
-              @input="setVolume"
-              class="w-24"
-            />
-            <span class="text-xs w-10 text-center inline-block font-semibold"
-              >{{ Math.round(volume * 100) }}%</span
-            >
-          </div> -->
-
-          <!-- MODO OSCURO -->
-          <!-- <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="3"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="icon icon-tabler icons-tabler-outline icon-tabler-sun cursor-pointer"
-            @click="toggleModoOscuro"
+      <div class="flex flex-col gap-3 items-center w-full">
+        <!-- SWITCH SEASON -->
+        <div class="flex w-full justify-center gap-5 font-bold">
+          <p>SEASON 2</p>
+          <div
+            class="relative w-14 h-7 rounded-full cursor-pointer"
+            :class="version === 'new' ? 'bg-orange-500' : 'bg-yellow-500'"
+            @click="toggleVersion"
+            style="transition: background-color 0.3s"
           >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-            <path
-              d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"
-            />
-          </svg> -->
+            <span
+              class="absolute top-1 w-5 h-5 bg-white rounded-full shadow"
+              :class="version === 'new' ? 'left-8' : 'left-1'"
+              style="transition: left 0.3s"
+            ></span>
+          </div>
+          <p>SEASON 3</p>
+        </div>
+        <!-- SWITCH GENRE-->
+        <div class="flex w-full justify-center items-center gap-5">
+          <img
+            draggable="false"
+            src="@/assets/female.png"
+            :class="[
+              gender === 'female' ? ' scale-150' : 'filter grayscale ',
+              'transition-transform duration-300 w-9',
+            ]"
+          />
+          <div
+            class="relative w-14 h-7 rounded-full cursor-pointer"
+            :class="gender === 'male' ? 'bg-blue-500' : 'bg-pink-500'"
+            @click="toggleGender"
+            style="transition: background-color 0.3s"
+          >
+            <span
+              class="absolute top-1 w-5 h-5 bg-white rounded-full shadow"
+              :class="gender === 'male' ? 'left-8' : 'left-1'"
+              style="transition: left 0.3s"
+            ></span>
+          </div>
+          <img
+            draggable="false"
+            src="@/assets/male.png"
+            :class="[
+              gender === 'male' ? 'scale-150' : 'filter grayscale',
+              'transition-transform duration-300 w-10',
+            ]"
+          />
         </div>
       </div>
-
-      <!-- VERSION SWITCH -->
-      <div class="flex w-full justify-center gap-5 font-semibold">
-        <p>SEASON 2</p>
-        <div
-          class="relative w-14 h-7 rounded-full cursor-pointer"
-          :class="version === 'new' ? 'bg-orange-400' : 'bg-gray-600'"
-          @click="toggleVersion"
-          style="transition: background-color 0.3s"
-        >
-          <span
-            class="absolute top-1 w-5 h-5 bg-white rounded-full shadow"
-            :class="version === 'new' ? 'left-8' : 'left-1'"
-            style="transition: left 0.3s"
-          ></span>
-        </div>
-        <p>SEASON 3</p>
-      </div>
-
-      <!-- GENRE SWITCH-->
-      <section class="flex w-full justify-center items-center gap-5">
-        <img
-          draggable="false"
-          src="@/assets/womaan.png"
-          :class="[
-            gender === 'female' ? ' scale-150' : 'filter grayscale ',
-            'transition-transform duration-300 w-9',
-          ]"
-        />
-        <div
-          class="relative w-14 h-7 rounded-full cursor-pointer"
-          :class="gender === 'male' ? 'bg-blue-500' : 'bg-red-500'"
-          @click="toggleGender"
-          style="transition: background-color 0.3s"
-        >
-          <span
-            class="absolute top-1 w-5 h-5 bg-white rounded-full shadow"
-            :class="gender === 'male' ? 'left-8' : 'left-1'"
-            style="transition: left 0.3s"
-          ></span>
-        </div>
-        <img
-          draggable="false"
-          src="@/assets/maan.png"
-          :class="[
-            gender === 'male' ? 'scale-150' : 'filter grayscale',
-            'transition-transform duration-300 w-10',
-          ]"
-        />
-      </section>
 
       <!-- EMOTE CARDS -->
       <div
-        class="grid [grid-template-columns:repeat(auto-fill,minmax(150px,1fr))] w-[750px] max-w-full justify-items-center gap-5 px-5"
+        class="grid [grid-template-columns:repeat(auto-fill,minmax(150px,1fr))] w-[750px] max-w-full gap-5 p-5"
       >
-        <!-- <EmoteCard
-          img="/Hi.webp"
-          label="Hola"
-          number="1"
-          sound="Hi"
-          :version="version"
-          :gender="gender"
-          :volume="volume"
-          :playEmoteSound="playEmoteSound"
-        />
-        <EmoteCard
-          img="/Bye.webp"
-          label="Adiós"
-          number="2"
-          sound="Bye"
-          :version="version"
-          :gender="gender"
-          :volume="volume"
-          :playEmoteSound="playEmoteSound"
-        />
-        <EmoteCard
-          img="/MyGod.webp"
-          label="Dios Mío"
-          number="3"
-          sound="MyGod"
-          :version="version"
-          :gender="gender"
-          :volume="volume"
-          :playEmoteSound="playEmoteSound"
-        />
-        <EmoteCard
-          img="/Help.webp"
-          label="Ayuda"
-          number="4"
-          sound="Help"
-          :version="version"
-          :gender="gender"
-          :volume="volume"
-          :playEmoteSound="playEmoteSound"
-        />
-        <EmoteCard
-          img="/Good.webp"
-          label="Bien"
-          number="5"
-          sound="Good"
-          :version="version"
-          :gender="gender"
-          :volume="volume"
-          :playEmoteSound="playEmoteSound"
-        />
-        <EmoteCard
-          img="/VeryGood.webp"
-          label="Muy Bien"
-          number="6"
-          sound="VeryGood"
-          :version="version"
-          :gender="gender"
-          :volume="volume"
-          :playEmoteSound="playEmoteSound"
-        />
-        <EmoteCard
-          img="/NiceTry.webp"
-          label="Buen Intento"
-          number="7"
-          sound="GoodTry"
-          :version="version"
-          :gender="gender"
-          :volume="volume"
-          :playEmoteSound="playEmoteSound"
-        />
-        <EmoteCard
-          img="/Sorry.webp"
-          label="Perdón"
-          number="8"
-          sound="Sorry"
-          :version="version"
-          :gender="gender"
-          :volume="volume"
-          :playEmoteSound="playEmoteSound"
-        />
-        <EmoteCard
-          img="/Noob.webp"
-          label="Principiante"
-          number="9"
-          sound="Beginner"
-          :version="version"
-          :gender="gender"
-          :volume="volume"
-          :playEmoteSound="playEmoteSound"
-        />
-        <EmoteCard
-          img="/Thanks.webp"
-          label="Gracias"
-          number="10"
-          sound="Thanks"
-          :version="version"
-          :gender
-          :volume="volume"
-          :playEmoteSound="playEmoteSound"
-        /> -->
         <EmoteCard
           v-for="emote in emotesCard"
           :key="emote.number"
