@@ -33,40 +33,12 @@ export function useApi() {
     }
   }
 
-  const login = (credentials: { email: string; password: string }) =>
-    apiRequest('/auth/login', {
-      method: 'POST',
-      body: JSON.stringify(credentials),
-    })
-
   const fetchEmotes = () => apiRequest('/emotes')
-
-  // 🔹 NUEVAS FUNCIONES PARA USUARIOS (CRUD)
-  const fetchUsers = () => apiRequest('/usuarios')
-  const createUser = (user: Record<string, unknown>) =>
-    apiRequest('/usuarios', {
-      method: 'POST',
-      body: JSON.stringify(user),
-    })
-  const updateUser = (id: string | number, user: Record<string, unknown>) =>
-    apiRequest(`/usuarios/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(user),
-    })
-  const deleteUser = (id: string | number) =>
-    apiRequest(`/usuarios/${id}`, {
-      method: 'DELETE',
-    })
 
   return {
     loading,
     error,
-    login,
     fetchEmotes,
     apiRequest,
-    fetchUsers,
-    createUser,
-    updateUser,
-    deleteUser,
   }
 }

@@ -1,32 +1,13 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
 import { routes } from '@/router'
-import { useUserStore } from '@/stores/user'
-
-const router = useRouter()
-const userStore = useUserStore()
 
 const LG_BREAKPOINT = 1024
 
 const isMobile = ref(window.innerWidth < LG_BREAKPOINT)
 const showSidebar = ref(!isMobile.value)
 
-const isLoggedIn = Boolean(userStore.token)
-
-const sideBarRoutes = routes.filter((r) => {
-  if (userStore.token) {
-    return r.label
-  } else {
-    return r.label && !r.admin
-  }
-})
-
-function handleLogout() {
-  localStorage.removeItem('token')
-  userStore.token = null
-  router.push('/login')
-}
+const sideBarRoutes = routes.filter((r) => r.label)
 
 function openSidebar() {
   showSidebar.value = true
@@ -130,14 +111,6 @@ onUnmounted(() => window.removeEventListener('resize', handleResize))
       >
         {{ route.label }}
       </RouterLink>
-
-      <button
-        v-if="isLoggedIn"
-        @click="handleLogout"
-        class="w-full text-center bg-gray-900 text-xl font-bold py-3 cursor-pointer duration-200 hover:text-2xl text-red-300 hover:text-red-400"
-      >
-        CERRAR SESIÓN
-      </button>
     </div>
   </Transition>
 </template>

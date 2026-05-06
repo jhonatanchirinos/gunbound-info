@@ -6,23 +6,12 @@ const props = defineProps<{
   sound: string
   version: string
   gender: string
-  volume: number
   playEmoteSound: (number: string) => void
 }>()
 
 function handleClick() {
   props.playEmoteSound(props.number)
 }
-
-// function playSound() {
-//   const capitalizedVersion = props.version.charAt(0).toUpperCase() + props.version.slice(1)
-//   const capitalizedGender = props.gender.charAt(0).toUpperCase() + props.gender.slice(1)
-//   const audio = new Audio(
-//     `/sounds/${props.version}/${props.gender}/${capitalizedVersion}${capitalizedGender}${props.sound}.mp3`,
-//   )
-//   audio.volume = props.volume ?? 1
-//   audio.play()
-// }
 </script>
 
 <template>

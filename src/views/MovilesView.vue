@@ -34,7 +34,7 @@ const error = ref<string | null>(null)
 const fetchMobiles = async () => {
   try {
     loading.value = true
-    // const response = await fetch('http://127.0.0.1:3000/api/moviles')
+
     const response = await fetch('/moviles.json')
 
     if (!response.ok) {
@@ -68,7 +68,6 @@ const selectedMobileInfo = computed(() => {
 </script>
 
 <template>
-
   <div class="flex flex-col overflow-x-auto mx-auto w-[1277px] max-w-full gap-2">
     <div class="flex justify-center w-full py-10">
       <h1 class="text-5xl font-extrabold">MÓVILES</h1>
@@ -124,40 +123,36 @@ const selectedMobileInfo = computed(() => {
       </table>
     </div>
 
-    <!-- {{ selectedMobileInfo?.img }} -->
-      <div class="px-5">
-        <div
-          v-if="selectedMobileInfo"
-          class="flex md:h-60 select-none rounded-xl gap-x-10 gap-y-6 p-5 items-center flex-col md:flex-row max-w-[400px] mx-auto md:mx-0 md:max-w-full selected-mobile-div "
-          :style="{
-            borderColor: selectedMobileInfo?.borderColor,
-            borderWidth: '7px',
-            borderStyle: 'solid',
-            '--border-color': selectedMobileInfo?.borderColor,
-          }"
-        >
-          <img
-            class="w-40 md:w-55 scale-x-[-1]"
-            :src="`/mobilesGB/${selectedMobileInfo?.img}.webp`"
-            draggable="false"
-          />
-          <div class="flex flex-col gap-y-1 max-h-full">
-            <h1 class="text-white text-4xl font-extrabold uppercase">
-              {{ selectedMobileInfo?.label }}
-            </h1>
-            <p class="selected-info pr-1 overflow-y-auto max-w-[72ch] font-semibold">
-              {{ selectedMobileInfo?.info }}
-            </p>
-          </div>
+    <div class="px-5">
+      <div
+        v-if="selectedMobileInfo"
+        class="flex md:h-60 select-none rounded-xl gap-x-10 gap-y-6 p-5 items-center flex-col md:flex-row max-w-[400px] mx-auto md:mx-0 md:max-w-full selected-mobile-div"
+        :style="{
+          borderColor: selectedMobileInfo?.borderColor,
+          borderWidth: '7px',
+          borderStyle: 'solid',
+          '--border-color': selectedMobileInfo?.borderColor,
+        }"
+      >
+        <img
+          class="w-40 md:w-55 scale-x-[-1]"
+          :src="`/mobilesGB/${selectedMobileInfo?.img}.webp`"
+          draggable="false"
+        />
+        <div class="flex flex-col gap-y-1 max-h-full">
+          <h1 class="text-white text-4xl font-extrabold uppercase">
+            {{ selectedMobileInfo?.label }}
+          </h1>
+          <p class="selected-info pr-1 overflow-y-auto max-w-[72ch] font-semibold">
+            {{ selectedMobileInfo?.info }}
+          </p>
         </div>
       </div>
+    </div>
   </div>
-
 </template>
 
 <style>
-/* ARMOR */
-
 th.head-cell {
   background: linear-gradient(to right, #232a36 30%, rgb(16, 24, 40) 100%);
   color: #fff;
@@ -201,10 +196,8 @@ th.head-cell2 {
   letter-spacing: 2px;
   border-radius: 0.5rem;
   box-shadow: 0 2px 8px 0 #0004;
-  /* border-right: 6px solid white; */
   text-shadow: 0 2px 8px #0008;
   overflow: hidden;
-  /* Ajusta según tu tabla */
 }
 
 .diagonal-th-left {
@@ -213,7 +206,6 @@ th.head-cell2 {
   top: 0;
   width: 60%;
   height: 80%;
-  /* display: flex; */
   align-items: flex-end;
   justify-content: center;
   padding-top: 12px;
@@ -226,7 +218,6 @@ th.head-cell2 {
   bottom: 0;
   width: 50%;
   height: 80%;
-  /* display: flex; */
   align-items: flex-start;
   justify-content: center;
   padding-bottom: 12px;
