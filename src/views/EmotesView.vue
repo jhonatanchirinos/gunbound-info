@@ -115,7 +115,7 @@ function toggleVersion() {
 
 <template>
   <div class="flex flex-col gap-10 items-center">
-    <div class="flex justify-center w-full py-10">
+    <div class="flex justify-center min-w-[320px] w-full py-10 mx-auto">
       <h1 class="text-5xl font-extrabold">EMOTES</h1>
     </div>
 
@@ -172,7 +172,7 @@ function toggleVersion() {
 
     <!-- EMOTE CARDS -->
     <div
-      class="grid [grid-template-columns:repeat(auto-fill,minmax(150px,1fr))] w-[750px] max-w-full gap-5 p-5"
+      class="grid [grid-template-columns:repeat(auto-fill,minmax(120px,1fr))] sm:[grid-template-columns:repeat(auto-fill,minmax(150px,1fr))] w-[750px] max-w-full gap-3 sm:gap-5 p-3 sm:p-5"
     >
       <EmoteCard
         v-for="emote in emotesCard"
