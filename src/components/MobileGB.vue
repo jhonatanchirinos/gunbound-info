@@ -33,7 +33,7 @@ function selectRandomMobiles() {
 
   // Selecciona todas las celdas excepto la que tiene la imagen random.webp
   const allMobiles = Array.from(document.querySelectorAll('td[borderColor]')).filter(
-    (td) => !td.querySelector('img')?.src.includes('random.webp')
+    (td) => !td.querySelector('img')?.src.includes('random.webp'),
   )
   // Crea un array de índices y los mezcla aleatoriamente
   const indices = allMobiles.map((_, i) => i)
@@ -97,40 +97,15 @@ function selectRandomMobiles() {
       class="w-24 min-w-24 mx-auto select-none rounded-lg block"
       draggable="false"
     />
-    <!-- absolute bottom-0 left-1/2 -translate-x-1/2  -->
     <p
       class="text-xs text-white pointer-events-none whitespace-nowrap font-semibold text-shadow-lg/90 absolute bottom-0 left-1/2 -translate-x-1/2"
     >
       {{ label }}
     </p>
   </td>
-
-  <!-- MOBILE MODAL -->
-  <!-- <Teleport to="body">
-    
-  </Teleport> -->
 </template>
 
 <style scoped>
-/* SOLO BORDE */
-/* td:has(img):hover,
-td.active-mobile {
-  box-shadow: 0 0 0 5px var(--border-color, #fff);
-}
-
-td:has(img):hover img,
-td.active-mobile img {
-  filter: drop-shadow(0 0 3px var(--border-color, #fff));
-} */
-
-/* GRADIENTE HACIA DENTRO */
-/* td:has(img):hover,
-td.active-mobile {
-  box-shadow: 0 0 0 5px var(--border-color, #fff);
-  background: radial-gradient(circle, transparent 20%, var(--border-color) 100%);
-
-} */
-
 /* GRADIENTE HACIA FUERA */
 td:has(img):hover,
 td.active-mobile {
