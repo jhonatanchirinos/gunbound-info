@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { routes } from '@/router'
 import { useUserStore } from '@/stores/user'
@@ -7,7 +7,10 @@ import { useUserStore } from '@/stores/user'
 const router = useRouter()
 const userStore = useUserStore()
 
-const showSidebar = ref(false)
+const LG_BREAKPOINT = 1024
+
+const isMobile = ref(window.innerWidth < LG_BREAKPOINT)
+const showSidebar = ref(!isMobile.value)
 
 const isLoggedIn = Boolean(userStore.token)
 
@@ -25,54 +28,32 @@ function handleLogout() {
   router.push('/login')
 }
 
-const openSidebar = () => {
+function openSidebar() {
   showSidebar.value = true
 }
 
-const closeSidebar = () => {
+function closeSidebar() {
   showSidebar.value = false
 }
+
+function closeSidebarIfMobile() {
+  if (isMobile.value) showSidebar.value = false
+}
+
+function handleResize() {
+  const mobile = window.innerWidth < LG_BREAKPOINT
+  isMobile.value = mobile
+  showSidebar.value = !mobile
+}
+
+onMounted(() => window.addEventListener('resize', handleResize))
+onUnmounted(() => window.removeEventListener('resize', handleResize))
 </script>
 
 <template>
-  <div
-    class="fixed hidden lg:flex flex-col items-center bg-gray-900 w-[200px] shrink-0 h-screen backdrop-blur-lg shadow-[0_0_24px_#2563eb80]"
-  >
-    <RouterLink to="/emotes">
-      <img draggable="false" src="@/assets/gb_logo.png" alt="Logo GB" class="p-5 cursor-pointer" />
-    </RouterLink>
-
-    <RouterLink
-      v-for="route in sideBarRoutes"
-      :key="route.name"
-      class="w-full text-center bg-gray-900 text-xl font-bold py-3 cursor-pointer duration-200 hover:text-2xl"
-      activeClass="!text-3xl view-selected"
-      :to="route.path"
-    >
-      {{ route.label }}
-    </RouterLink>
-
-    <!-- Botón de LOGIN cuando NO está logueado -->
-    <!-- <RouterLink
-      v-if="!isLoggedIn"
-      to="/login"
-      class="w-full text-center bg-gray-900 text-xl font-bold py-3 cursor-pointer duration-200 hover:text-2xl text-green-300 hover:text-green-400"
-    >
-      INICIAR SESIÓN
-    </RouterLink> -->
-
-    <!-- Botón de CERRAR SESIÓN cuando SÍ está logueado -->
-    <button
-      v-if="isLoggedIn"
-      @click="handleLogout"
-      class="w-full text-center bg-gray-900 text-xl font-bold py-3 cursor-pointer duration-200 hover:text-2xl text-red-300 hover:text-red-400"
-    >
-      CERRAR SESIÓN
-    </button>
-  </div>
-
-  <!-- Botón hamburguesa ESCRITORIO-->
+  <!-- Botón hamburguesa: solo cuando sidebar cerrada en móvil -->
   <button
+    v-if="!showSidebar"
     class="fixed top-4 left-4 z-50 bg-gray-900 p-2 rounded-md shadow-lg cursor-pointer lg:hidden"
     @click="openSidebar"
     aria-label="Abrir menú"
@@ -93,22 +74,24 @@ const closeSidebar = () => {
     </svg>
   </button>
 
-  <!-- Overlay para cerrar la barra lateral al hacer click fuera -->
-  <div
-    v-if="showSidebar"
-    class="fixed inset-0 bg-black/30 z-40 lg:hidden"
-    @click="closeSidebar"
-  ></div>
+  <!-- Overlay: solo en móvil cuando sidebar abierta -->
+  <Transition name="fade">
+    <div
+      v-if="showSidebar && isMobile"
+      class="fixed inset-0 bg-black/30 z-40"
+      @click="closeSidebar"
+    />
+  </Transition>
 
-  <!-- Barra lateral MÓVIL -->
+  <!-- Sidebar única -->
   <Transition>
     <div
       v-if="showSidebar"
-      class="fixed top-0 left-0 w-40 h-full bg-gray-900 flex flex-col items-center z-50 backdrop-blur-lg shadow-[0_0_24px_#2563eb80] lg:hidden"
+      class="fixed top-0 left-0 flex flex-col items-center bg-gray-900 w-[200px] shrink-0 h-screen backdrop-blur-lg shadow-[0_0_24px_#2563eb80] z-50"
     >
-      <!-- Botón hamburguesa para cerrar, en la misma posición -->
+      <!-- Botón cerrar: solo en móvil -->
       <button
-        class="absolute top-4 left-4 z-50 bg-gray-900 p-2 rounded-md shadow-lg cursor-pointer"
+        class="absolute top-4 left-4 lg:hidden bg-gray-900 p-2 rounded-md shadow-lg cursor-pointer z-10"
         @click="closeSidebar"
         aria-label="Cerrar menú"
       >
@@ -127,38 +110,27 @@ const closeSidebar = () => {
           />
         </svg>
       </button>
-      <!-- ...resto del contenido de la barra lateral... -->
-      <div class="w-full flex items-center justify-end px-2 py-3">
-        <RouterLink to="/emotes">
-          <img
-            draggable="false"
-            src="@/assets/gb_logo.png"
-            alt="Logo GB"
-            class="h-24 max-w-[120px] w-auto cursor-pointer"
-          />
-        </RouterLink>
-      </div>
+
+      <RouterLink to="/emotes">
+        <img
+          draggable="false"
+          src="@/assets/gb_logo.png"
+          alt="Logo GB"
+          class="p-5 cursor-pointer"
+        />
+      </RouterLink>
+
       <RouterLink
         v-for="route in sideBarRoutes"
         :key="route.name"
         class="w-full text-center bg-gray-900 text-xl font-bold py-3 cursor-pointer duration-200 hover:text-2xl"
         activeClass="!text-3xl view-selected"
         :to="route.path"
+        @click="closeSidebarIfMobile"
       >
         {{ route.label }}
       </RouterLink>
 
-      <!-- Botón de LOGIN cuando NO está logueado -->
-      <!-- <RouterLink
-        v-if="!isLoggedIn"
-        to="/login"
-        class="w-full text-center bg-gray-900 text-xl font-bold py-3 cursor-pointer duration-200 hover:text-2xl text-green-300 hover:text-green-400"
-        @click="closeSidebar"
-      >
-        INICIAR SESIÓN
-      </RouterLink> -->
-
-      <!-- Botón de CERRAR SESIÓN cuando SÍ está logueado -->
       <button
         v-if="isLoggedIn"
         @click="handleLogout"
@@ -173,15 +145,12 @@ const closeSidebar = () => {
 <style scoped>
 .view-selected {
   background: linear-gradient(90deg, #2563eb 10%, #101828 100%);
-
-  /* border-radius: 0.5rem; */
 }
 
 * {
   user-select: none;
 }
 
-/* we will explain what these classes do next! */
 .v-enter-active,
 .v-leave-active {
   transition: all 0.2s linear;
@@ -190,6 +159,15 @@ const closeSidebar = () => {
 .v-enter-from,
 .v-leave-to {
   transform: translate(-100%);
-  /* opacity: 0; */
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s linear;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

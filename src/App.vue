@@ -5,7 +5,7 @@ import SideBar from './components/SideBar.vue'
 <template>
   <SideBar v-if="$route.path !== '/login'" />
 
-  <div :class="{ 'pl-55': $route.path !== '/login' && $route.path !== '/panel' }">
+  <div :class="{ 'pl-15': $route.path !== '/login' && $route.path !== '/panel' }">
     <RouterView />
   </div>
 </template>

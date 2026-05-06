@@ -68,13 +68,14 @@ const selectedMobileInfo = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col overflow-x-auto mx-auto w-[1377px] max-w-full ">
+
+  <div class="flex flex-col overflow-x-auto mx-auto w-[1277px] max-w-full gap-2">
     <div class="flex justify-center w-full py-10">
       <h1 class="text-5xl font-extrabold">MÓVILES</h1>
     </div>
 
     <!-- MOBILES TABLE -->
-    <div class="overflow-x-auto">
+    <div class="flex overflow-x-auto">
       <table class="border-separate border-spacing-2">
         <thead>
           <tr>
@@ -124,36 +125,33 @@ const selectedMobileInfo = computed(() => {
     </div>
 
     <!-- {{ selectedMobileInfo?.img }} -->
-    <div
-      v-if="selectedMobileInfo"
-      class="flex md:h-60 select-none rounded-xl gap-x-10 gap-y-6 p-5 items-center flex-col md:flex-row max-w-[400px] mx-auto md:mx-0 md:max-w-full selected-mobile-div"
-      :style="{
-        borderColor: selectedMobileInfo?.borderColor,
-        borderWidth: '7px',
-        borderStyle: 'solid',
-        '--border-color': selectedMobileInfo?.borderColor,
-      }"
-    >
-      <img
-        class="w-40 md:w-55 scale-x-[-1]"
-        :src="`/mobilesGB/${selectedMobileInfo?.img}.webp`"
-        draggable="false"
-      />
-      <div class="flex flex-col gap-y-1 max-h-full">
-        <h1 class="text-white text-4xl font-extrabold uppercase">
-          {{ selectedMobileInfo?.label }}
-        </h1>
-        <p class="selected-info pr-1 overflow-y-auto max-w-[72ch] font-semibold">
-          {{ selectedMobileInfo?.info }}
-        </p>
+      <div class="px-5">
+        <div
+          v-if="selectedMobileInfo"
+          class="flex md:h-60 select-none rounded-xl gap-x-10 gap-y-6 p-5 items-center flex-col md:flex-row max-w-[400px] mx-auto md:mx-0 md:max-w-full selected-mobile-div "
+          :style="{
+            borderColor: selectedMobileInfo?.borderColor,
+            borderWidth: '7px',
+            borderStyle: 'solid',
+            '--border-color': selectedMobileInfo?.borderColor,
+          }"
+        >
+          <img
+            class="w-40 md:w-55 scale-x-[-1]"
+            :src="`/mobilesGB/${selectedMobileInfo?.img}.webp`"
+            draggable="false"
+          />
+          <div class="flex flex-col gap-y-1 max-h-full">
+            <h1 class="text-white text-4xl font-extrabold uppercase">
+              {{ selectedMobileInfo?.label }}
+            </h1>
+            <p class="selected-info pr-1 overflow-y-auto max-w-[72ch] font-semibold">
+              {{ selectedMobileInfo?.info }}
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
   </div>
-
-
-
-
-
 
 </template>
 

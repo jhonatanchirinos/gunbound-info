@@ -3,14 +3,12 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import EmoteCard from '@/components/EmoteCard.vue'
 // import hiImage from '@/assets/Hi.webp'
 
-// const modoOscuro = ref(false)
+
 const gender = ref<'male' | 'female'>('male')
 const version = ref<'old' | 'new'>('new')
 
 const volume = ref(1) // 1 es el máximo
-// const showVolume = ref(false)
-// const lastVolume = ref(1)
-// const muted = ref(false)
+
 
 const emoteCount = ref(0)
 const emoteBlocked = ref(false)
