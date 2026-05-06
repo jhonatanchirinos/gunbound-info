@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const props = defineProps<{
   img: string
@@ -13,6 +13,25 @@ const props = defineProps<{
 
 const isTapped = ref(false)
 
+const dynamicClasses = computed(() => {
+  const isMale = props.gender === 'male'
+
+  // Clases compartidas tanto en verde/azul o rosa
+  const hoverShared = 'md:hover:scale-105 md:hover:bg-gray-800'
+
+  // Clases exclusivas para Hover (Desktop)
+  const hoverClasses = isMale
+    ? `${hoverShared} md:hover:border-blue-500 md:hover:shadow-[0_15px_30px_rgba(59,130,246,0.5)]`
+    : `${hoverShared} md:hover:border-pink-500 md:hover:shadow-[0_15px_30px_rgba(236,72,153,0.5)]`
+
+  // Clases exclusivas para Tap (Celular)
+  const tapClasses = isMale
+    ? 'scale-105 !border-blue-500 !bg-gray-800 shadow-[0_15px_30px_rgba(59,130,246,0.5)]'
+    : 'scale-105 !border-pink-500 !bg-gray-800 shadow-[0_15px_30px_rgba(236,72,153,0.5)]'
+
+  return isTapped.value ? tapClasses : hoverClasses
+})
+
 function handleClick() {
   isTapped.value = true
   setTimeout(() => {
@@ -25,12 +44,8 @@ function handleClick() {
 
 <template>
   <div
-    class="flex flex-col gap-5 items-center w-full rounded-xl py-5 px-3 font-semibold cursor-pointer select-none transition-all duration-300 bg-gray-900 border-2 border-b-[6px] border-gray-700 md:hover:scale-105 md:hover:border-blue-500 md:hover:bg-gray-800 md:hover:shadow-[0_15px_30px_rgba(59,130,246,0.5)] [-webkit-tap-highlight-color:transparent]"
-    :class="
-      isTapped
-        ? 'scale-105 !border-blue-500 !bg-gray-800 shadow-[0_15px_30px_rgba(59,130,246,0.5)]'
-        : ''
-    "
+    class="flex flex-col gap-5 items-center w-full rounded-xl py-5 px-3 font-semibold cursor-pointer select-none transition-all duration-300 bg-gray-900 border-2 border-b-[6px] border-gray-700 [-webkit-tap-highlight-color:transparent]"
+    :class="dynamicClasses"
     @click="handleClick"
   >
     <img
