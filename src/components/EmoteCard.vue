@@ -44,29 +44,29 @@ function handleClick() {
 
 <template>
   <div
-    class="flex flex-col gap-5 items-center w-full rounded-xl py-5 px-3 font-semibold cursor-pointer select-none transition-all duration-300 bg-gray-900 border-2 border-b-[6px] border-gray-700 [-webkit-tap-highlight-color:transparent]"
+    class="flex flex-col gap-4 md:gap-6 items-center w-full rounded-xl py-4 md:py-6 px-3 md:px-4 font-semibold cursor-pointer select-none transition-all duration-300 bg-gray-900 border-2 border-b-[6px] border-gray-700 [-webkit-tap-highlight-color:transparent]"
     :class="dynamicClasses"
     @click="handleClick"
   >
     <img
       :src="img"
-      class="w-14 h-14 border-2 border-b-4 border-gray-300 bg-white rounded-xl p-0.5"
+      class="w-14 h-14 md:w-20 md:h-20 border-2 border-b-[3px] md:border-b-[4px] border-gray-300 bg-white rounded-xl p-0.5 md:p-1"
       draggable="false"
     />
     <p
-      class="text-white font-bold tracking-wider text-center text-sm md:text-base flex items-center justify-center min-h-[40px] md:min-h-0 md:block md:w-auto"
+      class="text-white font-bold tracking-wider text-center text-sm md:text-lg flex items-center justify-center min-h-[40px] md:min-h-0 md:block md:w-auto"
     >
       {{ label }}
     </p>
-    <div class="flex gap-1.5 md:gap-2 items-center text-gray-900 text-xs md:text-sm">
+    <div class="flex gap-1.5 md:gap-2.5 items-center text-gray-900 text-xs md:text-base">
       <p
-        class="px-1.5 md:px-2 py-0.5 md:py-1 bg-[#ECEFF0] border-2 border-b-[3px] md:border-b-[4px] border-gray-400 rounded-md md:rounded-lg shadow-md"
+        class="px-1.5 md:px-2.5 py-0.5 md:py-1 bg-[#ECEFF0] border-2 border-b-[3px] md:border-b-[4px] border-gray-400 rounded-md md:rounded-lg shadow-md"
       >
         Alt
       </p>
-      <p class="text-gray-400 font-extrabold">+</p>
+      <p class="text-gray-400 font-extrabold md:text-lg">+</p>
       <p
-        class="px-2 md:px-3 py-0.5 md:py-1 bg-[#ECEFF0] border-2 border-b-[3px] md:border-b-[4px] border-gray-400 rounded-md md:rounded-lg shadow-md"
+        class="px-2 md:px-3.5 py-0.5 md:py-1 bg-[#ECEFF0] border-2 border-b-[3px] md:border-b-[4px] border-gray-400 rounded-md md:rounded-lg shadow-md"
       >
         {{ number }}
       </p>
