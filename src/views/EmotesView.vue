@@ -1,14 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import EmoteCard from '@/components/EmoteCard.vue'
-// import hiImage from '@/assets/Hi.webp'
-
 
 const gender = ref<'male' | 'female'>('male')
 const version = ref<'old' | 'new'>('new')
-
-const volume = ref(1) // 1 es el máximo
-
 
 const emoteCount = ref(0)
 const emoteBlocked = ref(false)
@@ -30,7 +25,6 @@ const error = ref<string | null>(null)
 const fetchEmotes = async () => {
   try {
     loading.value = true
-    // const response = await fetch('http://127.0.0.1:3000/api/emotes')
     const response = await fetch('/emotes.json')
 
     if (!response.ok) {
@@ -85,9 +79,8 @@ function playEmoteSound(number: string) {
   const sound = soundMap[number]
   if (sound) {
     const audio = new Audio(
-      `/sounds/${version.value}/${gender.value}/${capitalizedVersion}${capitalizedGender}${sound}.mp3`
+      `/sounds/${version.value}/${gender.value}/${capitalizedVersion}${capitalizedGender}${sound}.mp3`,
     )
-    audio.volume = volume.value ?? 1
     audio.play()
   }
 }
@@ -106,36 +99,10 @@ function handleKeydown(e: KeyboardEvent) {
 
 onMounted(() => {
   window.addEventListener('keydown', handleKeydown)
-  // const saved = localStorage.getItem('modoOscuro')
-  // if (saved !== null) modoOscuro.value = saved === 'true'
 })
 onUnmounted(() => {
   window.removeEventListener('keydown', handleKeydown)
 })
-
-// function toggleModoOscuro() {
-//   modoOscuro.value = !modoOscuro.value
-//   localStorage.setItem('modoOscuro', modoOscuro.value.toString())
-// }
-
-// function toggleVolume() {
-//   showVolume.value = !showVolume.value
-// }
-
-// function setVolume(e: Event) {
-//   volume.value = +(e.target as HTMLInputElement).value
-// }
-
-// function toggleMute() {
-//   if (!muted.value) {
-//     lastVolume.value = volume.value
-//     volume.value = 0
-//     muted.value = true
-//   } else {
-//     volume.value = lastVolume.value
-//     muted.value = false
-//   }
-// }
 
 function toggleGender() {
   gender.value = gender.value === 'male' ? 'female' : 'male'
@@ -153,72 +120,71 @@ function toggleVersion() {
     </div>
 
     <div class="flex flex-col gap-3 items-center w-full">
-        <!-- SWITCH SEASON -->
-        <div class="flex w-full justify-center gap-5 font-bold">
-          <p>SEASON 2</p>
-          <div
-            class="relative w-14 h-7 rounded-full cursor-pointer"
-            :class="version === 'new' ? 'bg-orange-500' : 'bg-yellow-500'"
-            @click="toggleVersion"
-            style="transition: background-color 0.3s"
-          >
-            <span
-              class="absolute top-1 w-5 h-5 bg-white rounded-full shadow"
-              :class="version === 'new' ? 'left-8' : 'left-1'"
-              style="transition: left 0.3s"
-            ></span>
-          </div>
-          <p>SEASON 3</p>
+      <!-- SWITCH SEASON -->
+      <div class="flex w-full justify-center gap-5 font-bold">
+        <p>SEASON 2</p>
+        <div
+          class="relative w-14 h-7 rounded-full cursor-pointer"
+          :class="version === 'new' ? 'bg-orange-500' : 'bg-yellow-500'"
+          @click="toggleVersion"
+          style="transition: background-color 0.3s"
+        >
+          <span
+            class="absolute top-1 w-5 h-5 bg-white rounded-full shadow"
+            :class="version === 'new' ? 'left-8' : 'left-1'"
+            style="transition: left 0.3s"
+          ></span>
         </div>
-        <!-- SWITCH GENRE-->
-        <div class="flex w-full justify-center items-center gap-5">
-          <img
-            draggable="false"
-            src="@/assets/female.png"
-            :class="[
-              gender === 'female' ? ' scale-150' : 'filter grayscale ',
-              'transition-transform duration-300 w-9',
-            ]"
-          />
-          <div
-            class="relative w-14 h-7 rounded-full cursor-pointer"
-            :class="gender === 'male' ? 'bg-blue-500' : 'bg-pink-500'"
-            @click="toggleGender"
-            style="transition: background-color 0.3s"
-          >
-            <span
-              class="absolute top-1 w-5 h-5 bg-white rounded-full shadow"
-              :class="gender === 'male' ? 'left-8' : 'left-1'"
-              style="transition: left 0.3s"
-            ></span>
-          </div>
-          <img
-            draggable="false"
-            src="@/assets/male.png"
-            :class="[
-              gender === 'male' ? 'scale-150' : 'filter grayscale',
-              'transition-transform duration-300 w-10',
-            ]"
-          />
+        <p>SEASON 3</p>
+      </div>
+      <!-- SWITCH GENRE-->
+      <div class="flex w-full justify-center items-center gap-5">
+        <img
+          draggable="false"
+          src="@/assets/female.png"
+          :class="[
+            gender === 'female' ? ' scale-150' : 'filter grayscale ',
+            'transition-transform duration-300 w-9',
+          ]"
+        />
+        <div
+          class="relative w-14 h-7 rounded-full cursor-pointer"
+          :class="gender === 'male' ? 'bg-blue-500' : 'bg-pink-500'"
+          @click="toggleGender"
+          style="transition: background-color 0.3s"
+        >
+          <span
+            class="absolute top-1 w-5 h-5 bg-white rounded-full shadow"
+            :class="gender === 'male' ? 'left-8' : 'left-1'"
+            style="transition: left 0.3s"
+          ></span>
         </div>
+        <img
+          draggable="false"
+          src="@/assets/male.png"
+          :class="[
+            gender === 'male' ? 'scale-150' : 'filter grayscale',
+            'transition-transform duration-300 w-10',
+          ]"
+        />
+      </div>
     </div>
 
     <!-- EMOTE CARDS -->
     <div
-        class="grid [grid-template-columns:repeat(auto-fill,minmax(150px,1fr))] w-[750px] max-w-full gap-5 p-5"
-      >
-        <EmoteCard
-          v-for="emote in emotesCard"
-          :key="emote.number"
-          :img="emote.img"
-          :label="emote.label"
-          :number="emote.number"
-          :sound="emote.sound"
-          :version="version"
-          :gender="gender"
-          :volume="volume"
-          :playEmoteSound="playEmoteSound"
-        />
+      class="grid [grid-template-columns:repeat(auto-fill,minmax(150px,1fr))] w-[750px] max-w-full gap-5 p-5"
+    >
+      <EmoteCard
+        v-for="emote in emotesCard"
+        :key="emote.number"
+        :img="emote.img"
+        :label="emote.label"
+        :number="emote.number"
+        :sound="emote.sound"
+        :version="version"
+        :gender="gender"
+        :playEmoteSound="playEmoteSound"
+      />
     </div>
   </div>
 
@@ -230,5 +196,3 @@ function toggleVersion() {
     {{ emoteMessage }}
   </div>
 </template>
-
-<style scoped></style>

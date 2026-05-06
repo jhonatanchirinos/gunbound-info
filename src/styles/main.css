@@ -1,14 +1,5 @@
 @import 'tailwindcss';
 
-* {
-  /* outline: red solid 1px; */
-}
-
-/* body {
-  font-family: Poppins, sans-serif;
-  @apply bg-[#1e293b] text-white;
-} */
-
 body {
   font-family: Poppins, sans-serif;
   color: white;
@@ -34,6 +25,5 @@ body {
 
 /* Firefox */
 * {
-  /* scrollbar-width: thin; */
   scrollbar-color: #9fb8d2 #232a36;
 }
