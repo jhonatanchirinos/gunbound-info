@@ -69,61 +69,65 @@ const selectedMobileInfo = computed(() => {
 
 <template>
   <div class="flex flex-col overflow-x-auto mx-auto w-[1277px] max-w-full gap-2">
-    <div class="flex justify-center w-full py-10">
+    <div class="flex justify-center min-w-[320px] w-full py-10 mx-auto">
       <h1 class="text-5xl font-extrabold">MÓVILES</h1>
     </div>
 
     <!-- MOBILES TABLE -->
-    <div class="flex overflow-x-auto">
-      <table class="border-separate border-spacing-2">
-        <thead>
-          <tr>
-            <th class="diagonal-th invisible" rowspan="4" style="position: relative">
-              <span class="flex diagonal-th-left text-xs md:hidden">DEF.</span>
-              <span class="diagonal-th-left text-xs hidden md:block">DEFENSA</span>
-              <span class="flex diagonal-th-right text-xs text-[#101828] md:hidden">ATQ.</span>
-              <span class="diagonal-th-right text-xs text-[#101828] hidden md:block">ATAQUE</span>
-            </th>
+    <div class="px-5 md:px-0">
+      <div class="flex overflow-x-auto">
+        <table class="border-separate border-spacing-2">
+          <thead>
+            <tr>
+              <th class="diagonal-th invisible" rowspan="4" style="position: relative">
+                <span class="flex diagonal-th-left text-xs md:hidden">DEF.</span>
+                <span class="diagonal-th-left text-xs hidden md:block">DEFENSA</span>
+                <span class="flex diagonal-th-right text-xs text-[#101828] md:hidden">ATQ.</span>
+                <span class="diagonal-th-right text-xs text-[#101828] hidden md:block">ATAQUE</span>
+              </th>
 
-            <th
-              v-for="mobileHead in mobileHeads"
-              :key="mobileHead.label"
-              class="text-white px-8 py-2 text-xl head-cell2 !font-extrabold"
-              :colspan="mobileHead.colspan"
-            >
-              {{ mobileHead.label }}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <!-- ...celdas EXPLOSIVO... -->
-          </tr>
-          <tr v-for="mobileRow in mobileRows" :key="mobileRow.head">
-            <th class="px-2 md:px-8 text-white text-xl head-cell !font-extrabold">
-              <span class="md:hidden text-xs mt-1 font-bold text-center">{{ mobileRow.head }}</span>
-              <span class="hidden md:block">
-                {{ mobileRow.head }}
-              </span>
-            </th>
-            <MobileGB
-              v-for="mobile in mobileRow.mobiles"
-              :key="mobile.label"
-              :img="mobile.img"
-              :label="mobile.label"
-              :alt="mobile.alt"
-              :colspan="mobile.colspan"
-              :borderColor="mobile.borderColor"
-              :clickable="mobile.clickable"
-              :info="mobile.info"
-              v-model:selectedMobile="selectedMobile"
-            />
-          </tr>
-        </tbody>
-      </table>
+              <th
+                v-for="mobileHead in mobileHeads"
+                :key="mobileHead.label"
+                class="text-white px-8 py-2 text-xl head-cell2 !font-extrabold"
+                :colspan="mobileHead.colspan"
+              >
+                {{ mobileHead.label }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <!-- ...celdas EXPLOSIVO... -->
+            </tr>
+            <tr v-for="mobileRow in mobileRows" :key="mobileRow.head">
+              <th class="px-2 md:px-8 text-white text-xl head-cell !font-extrabold">
+                <span class="md:hidden text-xs mt-1 font-bold text-center">{{
+                  mobileRow.head
+                }}</span>
+                <span class="hidden md:block">
+                  {{ mobileRow.head }}
+                </span>
+              </th>
+              <MobileGB
+                v-for="mobile in mobileRow.mobiles"
+                :key="mobile.label"
+                :img="mobile.img"
+                :label="mobile.label"
+                :alt="mobile.alt"
+                :colspan="mobile.colspan"
+                :borderColor="mobile.borderColor"
+                :clickable="mobile.clickable"
+                :info="mobile.info"
+                v-model:selectedMobile="selectedMobile"
+              />
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <div class="px-5">
+    <div class="px-5 py-3">
       <div
         v-if="selectedMobileInfo"
         class="flex md:h-60 select-none rounded-xl gap-x-10 gap-y-6 p-5 items-center flex-col md:flex-row max-w-[400px] mx-auto md:mx-0 md:max-w-full selected-mobile-div"
@@ -140,7 +144,9 @@ const selectedMobileInfo = computed(() => {
           draggable="false"
         />
         <div class="flex flex-col gap-y-1 max-h-full">
-          <h1 class="text-white text-4xl font-extrabold uppercase">
+          <h1
+            class="text-white text-4xl font-extrabold uppercase flex justify-center md:justify-start"
+          >
             {{ selectedMobileInfo?.label }}
           </h1>
           <p class="selected-info pr-1 overflow-y-auto max-w-[72ch] font-semibold">

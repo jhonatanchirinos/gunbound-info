@@ -3,9 +3,9 @@ import SideBar from './components/SideBar.vue'
 </script>
 
 <template>
-  <SideBar v-if="$route.path !== '/login'" />
+  <SideBar />
 
-  <div :class="{ 'pl-15': $route.path !== '/login' && $route.path !== '/panel' }">
+  <div class="lg:pl-[200px]">
     <RouterView />
   </div>
 </template>
