@@ -70,34 +70,36 @@ onUnmounted(() => window.removeEventListener('resize', handleResize))
       v-if="showSidebar"
       class="fixed top-0 left-0 flex flex-col items-center bg-gray-900 w-[200px] shrink-0 h-screen backdrop-blur-lg shadow-[0_0_24px_#2563eb80] z-50"
     >
-      <!-- Botón cerrar: solo en móvil -->
-      <button
-        class="absolute top-4 left-4 lg:hidden bg-gray-900 p-2 rounded-md shadow-lg cursor-pointer z-10"
-        @click="closeSidebar"
-        aria-label="Cerrar menú"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="size-7 text-white"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+      <!-- Cabecera del sidebar en celular (Botón Cerrar) -->
+      <div class="w-full flex justify-end p-3 lg:hidden">
+        <button
+          class="bg-gray-800 p-2 rounded-md shadow-lg cursor-pointer hover:bg-gray-700 transition"
+          @click="closeSidebar"
+          aria-label="Cerrar menú"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="size-6 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
 
-      <RouterLink to="/emotes">
+      <RouterLink to="/emotes" class="lg:mt-5">
         <img
           draggable="false"
           src="@/assets/gb_logo.png"
           alt="Logo GB"
-          class="p-5 cursor-pointer"
+          class="px-5 pb-5 pt-1 lg:pt-5 cursor-pointer"
         />
       </RouterLink>
 
