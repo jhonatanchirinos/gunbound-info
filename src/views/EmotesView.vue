@@ -18,6 +18,20 @@ interface Emote {
   sound: string
 }
 
+// Diccionario estático global: evita reconstruirse por cada pulsación
+const SOUND_MAP: Record<string, string> = {
+  '1': 'Hi',
+  '2': 'Bye',
+  '3': 'MyGod',
+  '4': 'Help',
+  '5': 'Good',
+  '6': 'VeryGood',
+  '7': 'GoodTry',
+  '8': 'Sorry',
+  '9': 'Beginner',
+  '0': 'Thanks',
+}
+
 const emotesCard = ref<Emote[]>([])
 const loading = ref(true)
 const error = ref<string | null>(null)
@@ -75,20 +89,7 @@ function playEmoteSound(number: string) {
   const capitalizedVersion = version.value.charAt(0).toUpperCase() + version.value.slice(1)
   const capitalizedGender = gender.value.charAt(0).toUpperCase() + gender.value.slice(1)
 
-  const soundMap: Record<string, string> = {
-    '1': 'Hi',
-    '2': 'Bye',
-    '3': 'MyGod',
-    '4': 'Help',
-    '5': 'Good',
-    '6': 'VeryGood',
-    '7': 'GoodTry',
-    '8': 'Sorry',
-    '9': 'Beginner',
-    '0': 'Thanks',
-  }
-
-  const sound = soundMap[number]
+  const sound = SOUND_MAP[number]
   if (sound) {
     const audio = new Audio(
       `/sounds/${version.value}/${gender.value}/${capitalizedVersion}${capitalizedGender}${sound}.mp3`,
