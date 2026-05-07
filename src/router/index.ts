@@ -13,10 +13,10 @@ export const routes = [
     label: 'EMOTES',
   },
   {
-    path: '/moviles',
-    name: 'moviles',
-    component: () => import('../views/MovilesView.vue'),
-    label: 'MÓVILES',
+    path: '/mobiles',
+    name: 'mobiles',
+    component: () => import('../views/MobilesView.vue'),
+    label: 'MOBILES',
   },
 ]
 
