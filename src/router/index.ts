@@ -1,6 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import EmotesView from '../views/EmotesView.vue'
-import MovilesView from '../views/MovilesView.vue'
 
 export const routes = [
   {
@@ -11,13 +9,13 @@ export const routes = [
   {
     path: '/emotes',
     name: 'emotes',
-    component: EmotesView,
+    component: () => import('../views/EmotesView.vue'),
     label: 'EMOTES',
   },
   {
     path: '/moviles',
     name: 'moviles',
-    component: MovilesView,
+    component: () => import('../views/MovilesView.vue'),
     label: 'MÓVILES',
   },
 ]
