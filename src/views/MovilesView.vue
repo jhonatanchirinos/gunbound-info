@@ -1,70 +1,8 @@
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue'
 import MobileGB from '@/components/MobileGB.vue'
+import { useMobileManager } from '@/composables/useMobileManager'
 
-const mobileHeads = [
-  {
-    label: 'MECÁNICO',
-    colspan: 6,
-  },
-  { label: 'ESCUDO', colspan: 6 },
-  { label: 'BIÓNICO', colspan: 12 },
-]
-
-interface Mobile {
-  label: string
-  img: string
-  alt: string
-  colspan: number
-  borderColor: string
-  clickable: boolean
-  info: string
-}
-
-interface MobileRow {
-  head: string
-  mobiles: Mobile[]
-}
-
-const mobileRows = ref<MobileRow[]>([])
-const loading = ref(true)
-const error = ref<string | null>(null)
-
-// Función para obtener los móviles
-const fetchMobiles = async () => {
-  try {
-    loading.value = true
-
-    const response = await fetch('/moviles.json')
-
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`)
-    }
-
-    const data = await response.json()
-    mobileRows.value = data
-  } catch (err) {
-    error.value = (err as Error).message
-    console.error('Error fetching mobiles:', err)
-  } finally {
-    loading.value = false
-  }
-}
-
-//Cargar datos al montar el componente
-onMounted(() => {
-  fetchMobiles()
-})
-
-const selectedMobile = ref(null)
-
-const selectedMobileInfo = computed(() => {
-  const result = mobileRows.value
-    .flatMap((row) => row.mobiles)
-    .find((mobile) => mobile.label === selectedMobile.value)
-
-  return result
-})
+const { mobileHeads, mobileRows, selectedMobile, selectedMobileInfo } = useMobileManager()
 </script>
 
 <template>
