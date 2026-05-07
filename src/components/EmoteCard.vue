@@ -8,8 +8,11 @@ const props = defineProps<{
   sound: string
   version: string
   gender: string
-  playEmoteSound: (number: string) => void
   isActive?: boolean
+}>()
+
+const emit = defineEmits<{
+  (e: 'play', number: string): void
 }>()
 
 const isTapped = ref(false)
@@ -39,7 +42,7 @@ function handleClick() {
     isTapped.value = false
   }, 400) // Se queda iluminado por 400ms para notar el tap
 
-  props.playEmoteSound(props.number)
+  emit('play', props.number)
 }
 </script>
 
