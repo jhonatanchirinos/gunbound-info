@@ -8,6 +8,7 @@ const version = ref<'old' | 'new'>('new')
 const emoteCount = ref(0)
 const emoteBlocked = ref(false)
 const emoteMessage = ref('')
+const activeEmote = ref<string | null>(null)
 let emoteTimeout: ReturnType<typeof setTimeout> | null = null
 
 interface Emote {
@@ -31,7 +32,10 @@ const fetchEmotes = async () => {
       throw new Error(`Error: ${response.status}`)
     }
     const data = await response.json()
-    emotesCard.value = data
+    // Transformamos el '10' a '0' para que coincida de forma natural con el teclado
+    emotesCard.value = data.map((emote: Emote) =>
+      emote.number === '10' ? { ...emote, number: '0' } : emote
+    )
   } catch (err) {
     error.value = err instanceof Error ? err.message : String(err)
   } finally {
@@ -62,8 +66,15 @@ function playEmoteSound(number: string) {
     }, 3000)
     return
   }
+
+  activeEmote.value = number
+  setTimeout(() => {
+    if (activeEmote.value === number) activeEmote.value = null
+  }, 400) // Se queda iluminado 400ms tras presionar el teclado
+
   const capitalizedVersion = version.value.charAt(0).toUpperCase() + version.value.slice(1)
   const capitalizedGender = gender.value.charAt(0).toUpperCase() + gender.value.slice(1)
+
   const soundMap: Record<string, string> = {
     '1': 'Hi',
     '2': 'Bye',
@@ -74,8 +85,9 @@ function playEmoteSound(number: string) {
     '7': 'GoodTry',
     '8': 'Sorry',
     '9': 'Beginner',
-    '10': 'Thanks',
+    '0': 'Thanks',
   }
+
   const sound = soundMap[number]
   if (sound) {
     const audio = new Audio(
@@ -183,6 +195,7 @@ function toggleVersion() {
         :sound="emote.sound"
         :version="version"
         :gender="gender"
+        :isActive="activeEmote === emote.number"
         :playEmoteSound="playEmoteSound"
       />
     </div>

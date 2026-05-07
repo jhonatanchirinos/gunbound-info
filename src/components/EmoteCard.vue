@@ -9,6 +9,7 @@ const props = defineProps<{
   version: string
   gender: string
   playEmoteSound: (number: string) => void
+  isActive?: boolean
 }>()
 
 const isTapped = ref(false)
@@ -24,12 +25,12 @@ const dynamicClasses = computed(() => {
     ? `${hoverShared} md:hover:border-blue-500 md:hover:shadow-[0_15px_30px_rgba(59,130,246,0.5)]`
     : `${hoverShared} md:hover:border-pink-500 md:hover:shadow-[0_15px_30px_rgba(236,72,153,0.5)]`
 
-  // Clases exclusivas para Tap (Celular)
+  // Clases exclusivas para Tap (Celular o Atajo de Teclado)
   const tapClasses = isMale
     ? 'scale-105 !border-blue-500 !bg-gray-800 shadow-[0_15px_30px_rgba(59,130,246,0.5)]'
     : 'scale-105 !border-pink-500 !bg-gray-800 shadow-[0_15px_30px_rgba(236,72,153,0.5)]'
 
-  return isTapped.value ? tapClasses : hoverClasses
+  return (isTapped.value || props.isActive) ? tapClasses : hoverClasses
 })
 
 function handleClick() {
