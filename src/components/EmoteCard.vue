@@ -48,9 +48,13 @@ function handleClick() {
 
 <template>
   <div
-    class="flex flex-col gap-4 md:gap-6 items-center w-full rounded-xl py-4 md:py-6 px-3 md:px-4 font-semibold cursor-pointer select-none transition-all duration-300 bg-gray-900 border-2 border-b-[6px] border-gray-700 [-webkit-tap-highlight-color:transparent]"
+    role="button"
+    tabindex="0"
+    class="flex flex-col gap-4 md:gap-6 items-center w-full rounded-xl py-4 md:py-6 px-3 md:px-4 font-semibold cursor-pointer select-none transition-all duration-300 bg-gray-900 border-2 border-b-[6px] border-gray-700 [-webkit-tap-highlight-color:transparent] focus:outline-none focus:ring-4 focus:ring-white/50"
     :class="dynamicClasses"
     @click="handleClick"
+    @keydown.enter.prevent="handleClick"
+    @keydown.space.prevent="handleClick"
   >
     <img
       :src="img"

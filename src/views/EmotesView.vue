@@ -32,6 +32,9 @@ const SOUND_MAP: Record<string, string> = {
   '0': 'Thanks',
 }
 
+// Caché estático de instacias de Audio
+const AUDIO_CACHE = new Map<string, HTMLAudioElement>()
+
 const emotesCard = ref<Emote[]>([])
 const loading = ref(true)
 const error = ref<string | null>(null)
@@ -91,10 +94,18 @@ function playEmoteSound(number: string) {
 
   const sound = SOUND_MAP[number]
   if (sound) {
-    const audio = new Audio(
-      `/sounds/${version.value}/${gender.value}/${capitalizedVersion}${capitalizedGender}${sound}.mp3`,
-    )
-    audio.play()
+    const soundUrl = `/sounds/${version.value}/${gender.value}/${capitalizedVersion}${capitalizedGender}${sound}.mp3`
+
+    // Recupera la instancia de memoria, o crea una nueva si es primera vez que suena
+    let audio = AUDIO_CACHE.get(soundUrl)
+    if (!audio) {
+      audio = new Audio(soundUrl)
+      AUDIO_CACHE.set(soundUrl, audio)
+    }
+
+    // Reinicia el sonido si ya estaba reproduciéndose (permite spam controlado)
+    audio.currentTime = 0
+    audio.play().catch((e) => console.warn('Audio play interrupted:', e))
   }
 }
 
