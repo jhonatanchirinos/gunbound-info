@@ -1,140 +1,19 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
 import EmoteCard from '@/components/EmoteCard.vue'
+import { useEmoteManager } from '@/composables/useEmoteManager'
 
-const gender = ref<'male' | 'female'>('male')
-const version = ref<'old' | 'new'>('new')
-
-const emoteCount = ref(0)
-const emoteBlocked = ref(false)
-const emoteMessage = ref('')
-const activeEmote = ref<string | null>(null)
-let emoteTimeout: ReturnType<typeof setTimeout> | null = null
-
-interface Emote {
-  number: string
-  img: string
-  label: string
-  sound: string
-}
-
-// Diccionario estático global: evita reconstruirse por cada pulsación
-const SOUND_MAP: Record<string, string> = {
-  '1': 'Hi',
-  '2': 'Bye',
-  '3': 'MyGod',
-  '4': 'Help',
-  '5': 'Good',
-  '6': 'VeryGood',
-  '7': 'GoodTry',
-  '8': 'Sorry',
-  '9': 'Beginner',
-  '0': 'Thanks',
-}
-
-// Caché estático de instacias de Audio
-const AUDIO_CACHE = new Map<string, HTMLAudioElement>()
-
-const emotesCard = ref<Emote[]>([])
-const loading = ref(true)
-const error = ref<string | null>(null)
-
-//Función para obtener los datos
-const fetchEmotes = async () => {
-  try {
-    loading.value = true
-    const response = await fetch('/emotes.json')
-
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`)
-    }
-    const data = await response.json()
-    // Transformamos el '10' a '0' para que coincida de forma natural con el teclado
-    emotesCard.value = data.map((emote: Emote) =>
-      emote.number === '10' ? { ...emote, number: '0' } : emote,
-    )
-  } catch (err) {
-    error.value = err instanceof Error ? err.message : String(err)
-  } finally {
-    loading.value = false
-  }
-}
-
-//Cargar datos al montar el componente
-onMounted(() => {
-  fetchEmotes()
-})
-
-// Función para reproducir sonido según número
-function playEmoteSound(number: string) {
-  if (emoteBlocked.value) {
-    emoteMessage.value = 'No hagas spam!'
-    return
-  }
-  emoteCount.value++
-  if (emoteCount.value > 10) {
-    emoteBlocked.value = true
-    emoteMessage.value = 'No hagas spam!'
-    if (emoteTimeout) clearTimeout(emoteTimeout)
-    emoteTimeout = setTimeout(() => {
-      emoteBlocked.value = false
-      emoteCount.value = 0
-      emoteMessage.value = ''
-    }, 3000)
-    return
-  }
-
-  activeEmote.value = number
-  setTimeout(() => {
-    if (activeEmote.value === number) activeEmote.value = null
-  }, 400) // Se queda iluminado 400ms tras presionar el teclado
-
-  const capitalizedVersion = version.value.charAt(0).toUpperCase() + version.value.slice(1)
-  const capitalizedGender = gender.value.charAt(0).toUpperCase() + gender.value.slice(1)
-
-  const sound = SOUND_MAP[number]
-  if (sound) {
-    const soundUrl = `/sounds/${version.value}/${gender.value}/${capitalizedVersion}${capitalizedGender}${sound}.mp3`
-
-    // Recupera la instancia de memoria, o crea una nueva si es primera vez que suena
-    let audio = AUDIO_CACHE.get(soundUrl)
-    if (!audio) {
-      audio = new Audio(soundUrl)
-      AUDIO_CACHE.set(soundUrl, audio)
-    }
-
-    // Reinicia el sonido si ya estaba reproduciéndose (permite spam controlado)
-    audio.currentTime = 0
-    audio.play().catch((e) => console.warn('Audio play interrupted:', e))
-  }
-}
-
-// Listener global para Alt + número
-function handleKeydown(e: KeyboardEvent) {
-  if (e.altKey) {
-    for (let i = 0; i < 10; i++) {
-      if (e.key === i.toString()) {
-        playEmoteSound(i.toString())
-        e.preventDefault()
-      }
-    }
-  }
-}
-
-onMounted(() => {
-  window.addEventListener('keydown', handleKeydown)
-})
-onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeydown)
-})
-
-function toggleGender() {
-  gender.value = gender.value === 'male' ? 'female' : 'male'
-}
-
-function toggleVersion() {
-  version.value = version.value === 'new' ? 'old' : 'new'
-}
+const {
+  gender,
+  version,
+  emotesCard,
+  loading,
+  error,
+  emoteMessage,
+  activeEmote,
+  playEmoteSound,
+  toggleGender,
+  toggleVersion
+} = useEmoteManager()
 </script>
 
 <template>
