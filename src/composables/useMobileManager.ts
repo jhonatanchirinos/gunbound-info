@@ -1,5 +1,5 @@
 import { ref, computed } from 'vue'
-import movilesData from '@/data/moviles.json'
+import mobilesData from '@/data/mobiles.json'
 import type { MobileRow } from '@/types/mobile'
 
 export function useMobileManager() {
@@ -12,7 +12,7 @@ export function useMobileManager() {
     { label: 'BIÓNICO', colspan: 12 },
   ]
 
-  const mobileRows = ref<MobileRow[]>(movilesData)
+  const mobileRows = ref<MobileRow[]>(mobilesData)
 
   const selectedMobile = ref<string | null>(null)
 

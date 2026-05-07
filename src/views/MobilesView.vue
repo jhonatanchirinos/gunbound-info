@@ -8,7 +8,7 @@ const { mobileHeads, mobileRows, selectedMobile, selectedMobileInfo } = useMobil
 <template>
   <div class="flex flex-col overflow-x-auto mx-auto w-[1277px] max-w-full gap-2">
     <div class="flex justify-center min-w-[320px] w-full py-10 mx-auto">
-      <h1 class="text-5xl font-extrabold">MÓVILES</h1>
+      <h1 class="text-5xl font-extrabold">MOBILES</h1>
     </div>
 
     <!-- MOBILES TABLE -->

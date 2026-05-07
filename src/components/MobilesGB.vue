@@ -11,11 +11,11 @@ const modoOscuro = ref(false)
       modoOscuro ? 'bg-[#FAF3E0] text-black' : 'bg-gray-900 text-white',
     ]"
   >
-    <!-- CONTENIDO MOVILES -->
+    <!-- CONTENIDO MOBILES -->
     <div class="flex-1 flex flex-col gap-7 items-center">
       <section class="flex justify-between w-full max-w-[750px] mt-10 px-5 gap-3">
         <div>
-          <h1 class="text-3xl font-extrabold">MÓVILES</h1>
+          <h1 class="text-3xl font-extrabold">MOBILES</h1>
         </div>
 
         <div class="flex gap-5 items-center">
