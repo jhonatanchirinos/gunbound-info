@@ -12,7 +12,7 @@ const {
   activeEmote,
   playEmoteSound,
   toggleGender,
-  toggleVersion
+  toggleVersion,
 } = useEmoteManager()
 </script>
 
