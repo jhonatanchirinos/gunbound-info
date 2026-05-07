@@ -13,16 +13,12 @@ const { mobileHeads, mobileRows, selectedMobile, selectedMobileInfo } = useMobil
 
     <!-- MOBILES TABLE -->
     <div class="px-5 md:px-0">
-      <div class="flex overflow-x-auto">
-        <table class="border-separate border-spacing-2">
+      <div class="overflow-x-auto custom-scrollbar pb-5">
+        <table class="border-separate border-spacing-2 min-w-max">
           <thead>
             <tr>
-              <th class="diagonal-th invisible" rowspan="4" style="position: relative">
-                <span class="flex diagonal-th-left text-xs md:hidden">DEF.</span>
-                <span class="diagonal-th-left text-xs hidden md:block">DEFENSA</span>
-                <span class="flex diagonal-th-right text-xs text-[#101828] md:hidden">ATQ.</span>
-                <span class="diagonal-th-right text-xs text-[#101828] hidden md:block">ATAQUE</span>
-              </th>
+              <!-- Empty spacer cell to offset the headers -->
+              <th class="w-16 md:w-32 sticky left-2 z-20 spacer-cell" rowspan="1"></th>
 
               <th
                 v-for="mobileHead in mobileHeads"
@@ -35,11 +31,10 @@ const { mobileHeads, mobileRows, selectedMobile, selectedMobileInfo } = useMobil
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <!-- ...celdas EXPLOSIVO... -->
-            </tr>
             <tr v-for="mobileRow in mobileRows" :key="mobileRow.head">
-              <th class="px-2 md:px-8 text-white text-xl head-cell !font-extrabold">
+              <th
+                class="px-2 md:px-8 text-white text-xl head-cell !font-extrabold sticky left-2 z-10"
+              >
                 <span class="md:hidden text-xs mt-1 font-bold text-center">{{
                   mobileRow.head
                 }}</span>
@@ -70,25 +65,25 @@ const { mobileHeads, mobileRows, selectedMobile, selectedMobileInfo } = useMobil
         v-if="selectedMobileInfo"
         class="flex md:h-60 select-none rounded-xl gap-x-10 gap-y-6 p-5 items-center flex-col md:flex-row max-w-[400px] mx-auto md:mx-0 md:max-w-full selected-mobile-div"
         :style="{
-          borderColor: selectedMobileInfo?.borderColor,
+          borderColor: selectedMobileInfo.borderColor,
           borderWidth: '7px',
           borderStyle: 'solid',
-          '--border-color': selectedMobileInfo?.borderColor,
+          '--border-color': selectedMobileInfo.borderColor,
         }"
       >
         <img
           class="w-40 md:w-55 scale-x-[-1]"
-          :src="`/mobilesGB/${selectedMobileInfo?.img}.webp`"
+          :src="`/mobilesGB/${selectedMobileInfo.img}.webp`"
           draggable="false"
         />
         <div class="flex flex-col gap-y-1 max-h-full">
           <h1
             class="text-white text-4xl font-extrabold uppercase flex justify-center md:justify-start"
           >
-            {{ selectedMobileInfo?.label }}
+            {{ selectedMobileInfo.label }}
           </h1>
           <p class="selected-info pr-1 overflow-y-auto max-w-[72ch] font-semibold">
-            {{ selectedMobileInfo?.info }}
+            {{ selectedMobileInfo.info }}
           </p>
         </div>
       </div>
@@ -104,9 +99,25 @@ th.head-cell {
   font-size: 1.25rem;
   letter-spacing: 2px;
   border-radius: 0.5rem;
-  box-shadow: 0 2px 8px 0 #0004;
   border-right: 6px solid white;
   text-shadow: 0 2px 8px #0008;
+  box-shadow: 4px 0 10px -2px rgba(0, 0, 0, 0.5);
+}
+
+th.head-cell::before,
+th.spacer-cell::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  bottom: -15px;
+  left: -50px; /* Cubre todo el hueco a la izquierda */
+  right: 0;
+  background-color: #111827;
+  z-index: -1;
+}
+
+th.spacer-cell {
+  pointer-events: none;
 }
 
 th.head-cell2 {
@@ -131,40 +142,20 @@ th.head-cell2 {
   }
 }
 
-.diagonal-th {
-  background: linear-gradient(13deg, #232a36 50%, #fcfcfc 50%);
-  color: #fff;
-  position: relative;
-  font-weight: bold;
-  font-size: 1.1rem;
-  letter-spacing: 2px;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 8px 0 #0004;
-  text-shadow: 0 2px 8px #0008;
-  overflow: hidden;
+/* CUSTOM SCROLLBAR PARA TABLE */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 10px;
 }
-
-.diagonal-th-left {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 60%;
-  height: 80%;
-  align-items: flex-end;
-  justify-content: center;
-  padding-top: 12px;
-  text-align: center;
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #232a36;
+  border-radius: 8px;
+  margin: 10px;
 }
-
-.diagonal-th-right {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 50%;
-  height: 80%;
-  align-items: flex-start;
-  justify-content: center;
-  padding-bottom: 12px;
-  text-align: center;
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #2563eb;
 }
 </style>
