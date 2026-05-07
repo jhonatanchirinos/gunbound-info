@@ -1,5 +1,6 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import type { Emote } from '@/types/emote'
+import emotesData from '@/data/emotes.json'
 
 const SOUND_MAP: Record<string, string> = {
   '1': 'Hi',
@@ -20,42 +21,23 @@ export function useEmoteManager() {
   const gender = ref<'male' | 'female'>('male')
   const version = ref<'old' | 'new'>('new')
 
-  const emotesCard = ref<Emote[]>([])
-  const loading = ref(true)
-  const error = ref<string | null>(null)
+  const emotesCard = ref<Emote[]>(
+    emotesData.map((emote: any) => (emote.number === '10' ? { ...emote, number: '0' } : emote)),
+  )
 
   const emoteCount = ref(0)
   const emoteBlocked = ref(false)
   const emoteMessage = ref('')
   const activeEmote = ref<string | null>(null)
-  
+
   let emoteTimeout: ReturnType<typeof setTimeout> | null = null
-
-  const fetchEmotes = async () => {
-    try {
-      loading.value = true
-      const response = await fetch('/emotes.json')
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`)
-      }
-      const data = await response.json()
-      emotesCard.value = data.map((emote: Emote) =>
-        emote.number === '10' ? { ...emote, number: '0' } : emote,
-      )
-    } catch (err) {
-      error.value = err instanceof Error ? err.message : String(err)
-    } finally {
-      loading.value = false
-    }
-  }
 
   function playEmoteSound(number: string) {
     if (emoteBlocked.value) {
       emoteMessage.value = 'No hagas spam!'
       return
     }
-    
+
     emoteCount.value++
     if (emoteCount.value > 10) {
       emoteBlocked.value = true
@@ -104,7 +86,6 @@ export function useEmoteManager() {
   }
 
   onMounted(() => {
-    fetchEmotes()
     window.addEventListener('keydown', handleKeydown)
   })
 
@@ -125,12 +106,10 @@ export function useEmoteManager() {
     gender,
     version,
     emotesCard,
-    loading,
-    error,
     emoteMessage,
     activeEmote,
     playEmoteSound,
     toggleGender,
-    toggleVersion
+    toggleVersion,
   }
 }

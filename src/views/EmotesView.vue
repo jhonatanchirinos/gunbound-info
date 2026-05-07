@@ -6,8 +6,6 @@ const {
   gender,
   version,
   emotesCard,
-  loading,
-  error,
   emoteMessage,
   activeEmote,
   playEmoteSound,
@@ -73,39 +71,8 @@ const {
       </div>
     </div>
 
-    <!-- ESTADO DE CARGA Y ERROR -->
-    <div v-if="loading" class="flex flex-col items-center justify-center w-full h-[40vh] gap-4">
-      <div
-        class="w-16 h-16 border-4 border-gray-700 border-t-blue-500 rounded-full animate-spin"
-      ></div>
-      <p class="text-gray-400 font-bold tracking-widest animate-pulse">CARGANDO RECURSOS...</p>
-    </div>
-
-    <div
-      v-else-if="error"
-      class="flex flex-col items-center justify-center w-full h-[40vh] gap-4 text-red-500 text-center px-5"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="size-16"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-        />
-      </svg>
-      <p class="text-2xl font-bold">ERROR DE CONEXIÓN</p>
-      <p class="text-gray-400 max-w-md">{{ error }}</p>
-    </div>
-
     <!-- EMOTE CARDS -->
     <div
-      v-else
       class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-[1000px] max-w-full gap-3 sm:gap-5 px-10 pb-10 sm:p-5"
     >
       <EmoteCard
